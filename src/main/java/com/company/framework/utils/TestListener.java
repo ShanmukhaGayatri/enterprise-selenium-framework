@@ -8,20 +8,14 @@ import org.testng.ITestResult;
 public class TestListener implements ITestListener {
 
     @Override
-    public void onTestFailure(ITestResult result) {
+    public void onTestSuccess(ITestResult result) {
         WebDriver driver = DriverManager.getDriver();
-
-        if (driver != null) {
-            ScreenshotUtils.capture(driver, result.getName());
-        }
+        ScreenshotUtils.capture(driver, result.getName());
     }
 
     @Override
-    public void onTestSuccess(ITestResult result) {
+    public void onTestFailure(ITestResult result) {
         WebDriver driver = DriverManager.getDriver();
-
-        if (driver != null) {
-            ScreenshotUtils.capture(driver, result.getName());
-        }
+        ScreenshotUtils.capture(driver, result.getName());
     }
 }
