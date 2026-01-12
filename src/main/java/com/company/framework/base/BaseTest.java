@@ -22,7 +22,7 @@ public class BaseTest {
     public void setUp() {
         log.info("===== Test Setup Started =====");
 
-        log.info("Launching browser");
+        log.info("Launching browser for test execution");
         driver = BrowserFactory.createDriver("chrome");
         DriverManager.setDriver(driver);
 
