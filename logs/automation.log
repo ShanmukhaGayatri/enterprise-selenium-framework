@@ -1,0 +1,6 @@
+2026-01-12 12:59:21 INFO  LoginTest - ===== Test Setup Started =====
+2026-01-12 12:59:21 INFO  LoginTest - Launching browser
+2026-01-12 12:59:24 INFO  LoginTest - Browser launched successfully
+2026-01-12 12:59:30 INFO  LoginTest - TEST PASSED: validLoginTest
+2026-01-12 12:59:30 INFO  LoginTest - Closing browser
+2026-01-12 12:59:30 INFO  LoginTest - ===== Test Teardown Completed =====

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="Automation Suite">
+
+    <listeners>
+        <listener class-name="com.company.framework.utils.TestListener"/>
+    </listeners>
+
+    <test name="Login Tests">
+        <classes>
+            <class name="com.company.framework.tests.LoginTest"/>
+        </classes>
+    </test>
+
+</suite>
