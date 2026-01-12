@@ -13,36 +13,37 @@ import com.company.framework.driver.DriverManager;
 
 public class ScreenshotUtils {
 
-    private static final String SCREENSHOT_DIR = "target/screenshots/";
+    private static final String SCREENSHOT_BASE_DIR =
+            System.getProperty("user.dir") + File.separator + "test-output"
+                    + File.separator + "screenshots";
 
-    public static String captureScreenshot(String testName) {
-
+    public static void captureScreenshot(String testName) {
         try {
             WebDriver driver = DriverManager.getDriver();
-
             if (driver == null) {
-                return null;
+                return;
             }
 
-            // Create directory if not exists
-            File directory = new File(SCREENSHOT_DIR);
+            File directory = new File(SCREENSHOT_BASE_DIR);
             if (!directory.exists()) {
                 directory.mkdirs();
             }
 
-            String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String screenshotPath = SCREENSHOT_DIR + testName + "_" + timestamp + ".png";
+            String timestamp =
+                    new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
-            File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            File destination = new File(screenshotPath);
+            File source =
+                    ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+            File destination = new File(
+                    SCREENSHOT_BASE_DIR + File.separator
+                            + testName + "_" + timestamp + ".png"
+            );
 
             FileUtils.copyFile(source, destination);
 
-            return screenshotPath;
-
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
     }
 }

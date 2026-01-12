@@ -11,7 +11,7 @@ import com.company.framework.driver.BrowserFactory;
 import com.company.framework.driver.DriverManager;
 import com.company.framework.utils.TestListener;
 
-@Listeners(TestListener.class)
+@Listeners(com.company.framework.utils.TestListener.class)
 public class BaseTest {
 
     protected WebDriver driver;
