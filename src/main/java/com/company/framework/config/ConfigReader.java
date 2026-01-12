@@ -1,26 +1,27 @@
 package com.company.framework.config;
 
-import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigReader {
 
     private static Properties properties = new Properties();
 
+    // Static block runs ONCE when class is loaded
     static {
-        try (InputStream input =
-             ConfigReader.class
-                 .getClassLoader()
-                 .getResourceAsStream("config.properties")) {
-
-            properties.load(input);
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load config.properties");
+        try {
+            FileInputStream fis = new FileInputStream(
+                "src/main/resources/config.properties"
+            );
+            properties.load(fis);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load config.properties file", e);
         }
     }
 
-    public static String get(String key) {
+    // This is the method BrowserFactory is calling
+    public static String getProperty(String key) {
         return properties.getProperty(key);
     }
 }

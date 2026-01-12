@@ -4,37 +4,45 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.io.FileHandler;
+
+import com.company.framework.driver.DriverManager;
 
 public class ScreenshotUtils {
 
-    public static void capture(WebDriver driver, String testName) {
+    private static final String SCREENSHOT_DIR = "target/screenshots/";
+
+    public static String captureScreenshot(String testName) {
 
         try {
-            // Create timestamp
-            String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-                    .format(new Date());
+            WebDriver driver = DriverManager.getDriver();
 
-            // Take screenshot
-            File src = ((TakesScreenshot) driver)
-                    .getScreenshotAs(OutputType.FILE);
+            if (driver == null) {
+                return null;
+            }
 
-            // Destination with timestamp
-            File dest = new File(
-                    "screenshots/" + testName + "_" + timestamp + ".png"
-            );
+            // Create directory if not exists
+            File directory = new File(SCREENSHOT_DIR);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
 
-            // Create directory if it does not exist
-            dest.getParentFile().mkdirs();
+            String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String screenshotPath = SCREENSHOT_DIR + testName + "_" + timestamp + ".png";
 
-            // Copy file
-            FileHandler.copy(src, dest);
+            File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            File destination = new File(screenshotPath);
+
+            FileUtils.copyFile(source, destination);
+
+            return screenshotPath;
 
         } catch (Exception e) {
-            // Intentionally ignored - screenshot failure should not fail test
+            e.printStackTrace();
+            return null;
         }
     }
 }
